@@ -1,5 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import sys, time
+
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -83,8 +86,33 @@ def europe_map():
 	"""
     Print map of Europe
     """
-    print(EUROPE)
+	print(EUROPE)
 
 
+# Dictionary will contain all booking information and upload it to the spreadsheet
+booking = {'departure': '', 'arrival': '', 'dep_date': '', 'first_pax': '', 'total_number_of_pax': int,
+           'time_departure': '', 'time_arrival': '', 'checked_in_bags': '', 'price': '', "reservation_number": ''} 
 
 
+def typing_print(text, delay=0.02):
+	"""
+    Typing effect to print statements
+    """
+	for letter in text:
+		sys.stdout.write(letter)
+		sys.stdout.flush()
+		time.sleep(delay)
+		
+def typing_input(text, delay=0.02):
+	"""
+    Typing effect to inputs
+    """
+	for letter in text:
+		sys.stdout.write(letter)
+		sys.stdout.flush()
+		time.sleep(delay)
+	value = input()
+	return value
+
+
+		
