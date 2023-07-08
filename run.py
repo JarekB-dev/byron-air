@@ -153,8 +153,59 @@ def main_menu():
             print("Invalid option, please try again.\n")
 
 
+def select_airport(direction, locked=None):
+    """
+    function will pull list of Countries from spreedsheet
+    worksheets and depending on choice will print list of
+    airports in that country
+    """
+    global booking
+    clear_terminal()
+    europe_map()
+
+    while True:
+        try:
+            sheet_names = [s.title for s in SHEET.worksheets()[1:]]
+            for index, item in enumerate(sheet_names):
+                print(index + 1, item.capitalize())
+            print("\n")
+            selection = int(
+                typing_input(f"Please choose your Country of {direction.capitalize()}:"))
+            clear_terminal()
+            if sheet_names[selection - 1]:
+                chosen_country_airports = SHEET.worksheet(
+                    sheet_names[selection - 1]).get_all_values()[1:]
+
+                for airport in chosen_country_airports:
+                    print(*airport)
+                chosen_airport = int(
+                    input(f"Please choose your Airport of {direction.capitalize()}: \n"))
+
+                airport_to_add = chosen_country_airports[chosen_airport - 1][1]
+                booking[direction] = airport_to_add
+
+                if (locked):
+                    if (locked == airport_to_add):
+                        print(
+                            "Arrival Airport must be different than Departure Airport. Please try again.\n")
+                        return select_airport(direction, locked)
+
+                return airport_to_add
+            else:
+                print("Please select correct Airport.\n")
+        except ValueError:
+            print("Please enter correct Airport.\n")
+        except IndexError:
+            print("Please enter correct Value.\n")
+
+
 def main():
-      """
-      to run all functions
-      """
+    """
+    to run all functions
+    """
+    dep_airport = select_airport("departure")
+    arr_airport = select_airport("arrival", dep_airport)
+    print(dep_airport)
+    print(arr_airport)
+
 main_menu()
