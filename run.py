@@ -1,7 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import sys, time
-
+from tabulate import tabulate
+import os
 
 
 SCOPE = [
@@ -114,5 +115,46 @@ def typing_input(text, delay=0.02):
 	value = input()
 	return value
 
+def clear_terminal():
+    """
+	function to clear terminal
+	"""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-		
+def main_menu():
+    """
+    Function displays main menu with option to
+    make a booking or retrieve booking
+    """
+
+    welcome()
+
+    menu = [
+        ["1", "Make a Booking"],
+        ["2", "Retrieve Booking"]
+    ]
+
+    typing_print(tabulate(menu))
+    while True:
+        try:
+            option = int(
+                typing_input("\nPress 1 to Make a Booking or 2 to Retrieve your Booking: \n"))
+            if option == 1:
+                clear_terminal()
+                main()
+                break
+            elif option == 2:
+                clear_terminal()
+                print("second option chosen")
+                break
+            else:
+                print("Invalid option, please try again.\n")
+        except ValueError:
+            print("Invalid option, please try again.\n")
+
+
+def main():
+      """
+      to run all functions
+      """
+main_menu()
