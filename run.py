@@ -150,7 +150,7 @@ def main_menu():
                 break
             elif option == 2:
                 clear_terminal()
-                print("second option chosen")
+                pull_reservation_details()
                 break
             else:
                 print("Invalid option, please try again.\n")
@@ -409,6 +409,25 @@ def add_booking_row(booking):
         booking['Reservation Number']
     ]
     worksheet.append_row(row_values)
+
+def pull_reservation_details():
+    """
+    function enables user to input number of previously created booking to
+    view all the details of the booking.
+    """
+    booking_sheet = SHEET.worksheet('bookings')
+    number = input("Please enter your Reservation Number: \n")
+    number = number.upper()
+    booking_rows = booking_sheet.findall(number)
+    if booking_rows:
+        booking_row = booking_rows[0].row
+        booking_values = booking_sheet.row_values(booking_row)
+        headers = booking_sheet.row_values(1)
+        booking_details = dict(zip(headers, booking_values))
+        booking_print = [[key, value] for key, value in booking_details.items()]
+        print(tabulate(booking_print, headers=['Key', 'Value'], tablefmt='grid'))
+    else:
+        print("Please provide correct Reservation Number")
 
 def main():
     """
