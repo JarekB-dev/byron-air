@@ -471,16 +471,19 @@ def pull_reservation_details():
 
 def make_a_booking():
     """
-    to run all functions
+    function starts select_airport function
+    to make sure that user first pick departure
+    airport and then arrival airport.
     """
     dep_airport = select_airport("Departure")
     arr_airport = select_airport("Arrival", dep_airport)
-    # print(dep_airport)
-    # print(arr_airport)
     date_of_departure()
 
 
 def main():
+    """
+    Start running functions
+    """
     main_menu()
 
 main()
