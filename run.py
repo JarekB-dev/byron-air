@@ -408,7 +408,7 @@ def reservation_details():
         f"Reservation: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
     booking['Price'] = f"{currency_symbol}{booking['Price']}"
-    booking_table = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
+    booking_table = [[key, f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
     typing_input("\nPlease press any key to go back to Main Menu..")
@@ -459,7 +459,7 @@ def pull_reservation_details():
             if not price_value.startswith(currency_symbol):
                 formatted_price = f"{currency_symbol} {price_value}"
                 booking_details[price] = formatted_price
-        booking_print = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
+        booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
         typing_print(
             f"Please see details of Reservation: \033[33m{number}\033[0m\n")
