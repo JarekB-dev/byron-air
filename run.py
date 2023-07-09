@@ -3,6 +3,8 @@ from google.oauth2.service_account import Credentials
 import sys, time
 from tabulate import tabulate
 import os
+import random
+from datetime import date, datetime, timedelta
 
 
 SCOPE = [
@@ -198,6 +200,105 @@ def select_airport(direction, locked=None):
         except IndexError:
             print("Please enter correct Value.\n")
 
+
+def date_of_departure():
+    """
+    Function enable user to set date of departure. Date must be in the future and error is being 
+    handled by except ValueError
+    """
+    clear_terminal()
+    print(
+        f"Departure Airport: {booking['departure'].upper()}, Arrival Airport: {booking['arrival'].upper()}")
+    while True:
+        try:
+            date_component = input(
+                "Please Enter departure date in DD/MM/YYYY format: \n")
+            dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
+            current_date = datetime.now().date()
+            if dep_date < current_date:
+                print("Please provide date in the future.\n")
+                continue
+            booking['dep_date'] = dep_date.strftime('%d/%B/%Y')
+            clear_terminal()
+            choose_flight()
+            break
+        except ValueError:
+            print("Please provide correct date in DD/MM/YYYY format.\n")
+
+def generate_random_time(start_time_str, end_time_str, hours_to_add):
+    """
+    Function generates random time for departure and random time for arrival,
+    but with additionaal 2 hours added
+    """
+    start_time = datetime.strptime(start_time_str, '%H:%M').time()
+    end_time = datetime.strptime(end_time_str, '%H:%M').time()
+    time_range = (end_time.hour - start_time.hour) * 60 + \
+        (end_time.minute - start_time.minute)
+    random_minutes = random.randint(0, time_range)
+    random_time = datetime.combine(
+        datetime.today(), start_time) + timedelta(minutes=random_minutes)
+    random_time += timedelta(hours=hours_to_add)
+    return random_time.strftime("%H:%M")
+
+# Random times depending on chosen flight
+early = generate_random_time('06:00', '08:00', hours_to_add=0)
+early_arr = generate_random_time("08:00", "10:00", hours_to_add=2)
+midday = generate_random_time("14:00", "16:00", hours_to_add=0)
+midday_arr = generate_random_time(
+    "16:00", "18:00", hours_to_add=2)
+late = generate_random_time("18:00", "20:00", hours_to_add=0)
+late_arr = generate_random_time("20:00", "22:00", hours_to_add=2)
+
+def generate_flight_price(min, max):
+    """
+    Function generates random price for the ticket
+    """
+    random_price = random.uniform(min, max)
+    return random_price
+
+# Different random prices depending on the chosen flight.
+currency_symbol = "€"
+price_1 = generate_flight_price(100, 200)
+price_2 = generate_flight_price(100, 200)
+price_3 = generate_flight_price(100, 200)
+flight_cost = booking["price"]
+
+def format_currency(value, currency_symbol):
+    """
+    Print flight price with currency attached
+    """
+    amount = f"{currency_symbol}{value:.2f}"
+    return amount
+
+def choose_flight():
+    """
+    Function enables user to choose 1 out of 3 randomly generated flights.
+    Departure and arrival has already been selected before.
+    Time and price is being generated randoomly."""
+    global booking
+    choose = [
+        ["Selection", "Departure Airport", "Dep Time",
+            "Arr Time", "Arrival Airport", "Price"],
+        ["1", booking['departure'], early, early_arr,
+            booking['arrival'], format_currency(price_1, currency_symbol)],
+        ["2", booking['departure'], midday, midday_arr,
+            booking['arrival'], format_currency(price_2, currency_symbol)],
+        ["3", booking['departure'],  late, late_arr, booking['arrival'], format_currency(price_3, currency_symbol)]]
+    print(tabulate(choose, headers='firstrow', tablefmt='grid'))
+    while True:
+        try:
+            flight = int(input("Please choose an available flight by Selection number: \n"))
+            
+            if flight in (1, 2, 3):
+                booking["time_departure"] = [early, midday, late][flight-1]
+                booking["time_arrival"] = [early_arr, midday_arr, late_arr][flight-1]
+                booking["price"] = [price_1, price_2, price_3][flight-1]
+                
+                break
+            else:
+                print("Please choose a correct flight from the list..\n")
+        except ValueError:
+            print("Please choose a correct flight from the list..\n")
 
 def main():
     """
