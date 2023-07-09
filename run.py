@@ -221,11 +221,11 @@ def date_of_departure():
     """
     clear_terminal()
     print(
-        f"Departure Airport: {booking['Departure'].upper()}, Arrival Airport: {booking['Arrival'].upper()}")
+        f"Departure Airport: {booking['Departure'].upper()}, Arrival Airport: {booking['Arrival'].upper()}\n")
     while True:
         try:
             date_component = typing_input(
-                "Please Enter departure date in DD/MM/YYYY format: \n")
+                "Please Enter departure date in DD/MM/YYYY format:\n")
             dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
             current_date = datetime.now().date()
             if dep_date < current_date:
@@ -346,7 +346,7 @@ def total_amount_of_pax():
     function add total amount of passengers to
     booking dictionary
     """
-    pax_amount =int(input("Please provide total amount of Passengers in the Reservation: \n"))
+    pax_amount =int(input("Please provide total amount of Passengers in the Reservation:\n"))
     booking["Total Number of Passengers"] = pax_amount
     price = booking["Price"]
     total_price = pax_amount * price
@@ -400,7 +400,7 @@ def reservation_details():
     add_booking_row(booking)
     booking_table = [[key, value] for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    typing_input("\n Please press any key to go back to Main Menu")
+    typing_input("\nPlease press any key to go back to Main Menu")
     main_menu()
 
 def add_booking_row(booking):
@@ -439,7 +439,15 @@ def pull_reservation_details():
         booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
         booking_details = dict(zip(headers, booking_values))
+        # add currency symbol to the total price of booking.
+        price = 'Price'
+        if price in booking_details:
+            price_value = booking_details[price]
+            if not price_value.startswith(currency_symbol):
+                formatted_price = f"{currency_symbol} {price_value}"
+                booking_details[price] = formatted_price
         booking_print = [[key, value] for key, value in booking_details.items()]
+        typing_print(f"Please see details of Reservation Number: {number}\n")
         print(tabulate(booking_print, headers=['Key', 'Value'], tablefmt='grid'))
         typing_input("Press any key to go back to Main Menu")
         main_menu()
