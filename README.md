@@ -1,32 +1,21 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# $${\color{gold}ByronAir \space Airline}$$
 
-Welcome,
+## **Python Command Line Ticket Booking System**
+> This application is Python based Flight ticket booking system. User is able to book tickets from Destinations in Europe. Customer is able to specify name, amount of bags and select desired flight. Booking creates reservation number which can be retrieved later to check booking details.
+>All bases and created bookings are available in this [Spreadsheet](https://docs.google.com/spreadsheets/d/13a70DgGfpnCKCHinh6Xt_CvlNsL3aNJ22Z5P98DCp1c/edit?usp=sharing).
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+### [Live Site](https://byron-air-b087f2b64028.herokuapp.com/)
 
-## Reminders
+### [Repository](https://github.com/JarekB-dev/byron-air)
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+## Table of Contents
 
-## Creating the Heroku app
+1. [Preplanning](#ux)
+2. [Features to Implement](#features)
+3. [Technologies Used](#technologies)
+4. [Testing](#testing)
+5. [Bugs](#bugs)
+6. [Deployment](#deployment)
+7. [Content](#resources)
+8. [Acknowledgments](#acknowledgments)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
----
-
-Happy coding!
