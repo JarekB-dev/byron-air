@@ -101,3 +101,29 @@ I have used Python code checker provided by Code Institute [Link](https://pep8ci
 
 ![CI Linter](assets/images/ci_linter.png)
 >Most errors are due to how LOGO is being created and couple of too long lines which are because of amount of data some statements are trying to pull.
+
+<a name="bugs"></a>
+
+# $${\color{orange}Bugs}$$
+
+During development of the application I have encountered multiple bugs, most of them have been resolved:
+
+- User was trying to set the same departure and arrival airport.
+  >This bug has been resolved for adding extra argument to flight direction function that check if both arguements are the same and if so then print an error.
+
+- User was not able to choose Country/Airport by index number but by Country/Airport name.
+  > To make it easier for the user to select Airport or country I wanted to make sure that those can be selected by entering index number. Method enumerate() came in handy as it allowed me to iterate over worksheet titles and assign them index numbers.
+
+- User was able to type during typing_input function.
+  > Adding return statement to typing_input prevented user to insert characters during typing effect function and input is being added after function is completed.
+
+- User was able to choose date from the past.
+  > This would make no sense to book flight tickets for past dates and had to resolve it with statement if current date < inputted date in date_of_departure function.
+
+- User was able to see booking worksheet on Country list.
+  > In this case setting [1:] came in handy to start iteration from second worksheet effectively skipping first Bookings worksheet.
+
+
+### Unfixed bugs
+
+- Currently I have a problem when User is trying to input too long name then Reservation Details table is displayed incorrectly in the console due to 80 character width.
