@@ -123,7 +123,7 @@ def main_menu():
 \033[34m2\033[0m to Retrieve your Booking:\n"))
             if option == 1:
                 clear_terminal()
-                main()
+                make_a_booking()
                 break
             elif option == 2:
                 clear_terminal()
@@ -469,7 +469,7 @@ def pull_reservation_details():
         pull_reservation_details()
 
 
-def main():
+def make_a_booking():
     """
     to run all functions
     """
@@ -480,4 +480,7 @@ def main():
     date_of_departure()
 
 
-main_menu()
+def main():
+    main_menu()
+
+main()
