@@ -293,12 +293,41 @@ def choose_flight():
                 booking["time_departure"] = [early, midday, late][flight-1]
                 booking["time_arrival"] = [early_arr, midday_arr, late_arr][flight-1]
                 booking["price"] = [price_1, price_2, price_3][flight-1]
-                
+                passenger_name()
                 break
             else:
                 print("Please choose a correct flight from the list..\n")
         except ValueError:
             print("Please choose a correct flight from the list..\n")
+
+def passenger_name():
+    """
+    Function have to input main passenger name that must
+    contain at least first and last name. Both parts of the name 
+    are being capitalized by title()
+    """
+    clear_terminal()
+    print(booking)
+    while True:
+        try:
+            name = input(
+                "Please enter First and Last Name of main Passenger:\n")
+            parts = name.split()
+            if len(parts) < 2:
+                print("Please provide Full Name")
+                continue
+            if any(element.isdigit() for element in name):
+                print("Name and Last name should not contain numbers\n")
+                continue
+            else:
+                first_name = parts[0].capitalize()
+                last_name = parts[1].capitalize()
+                full_name = ' '.join([first_name, last_name])
+                booking["first_pax"] = full_name
+                print(booking)
+                break
+        except ValueError:
+            print("Name and Last name should not contain numbers\n")
 
 def main():
     """
