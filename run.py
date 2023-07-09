@@ -107,16 +107,18 @@ def typing_print(text, delay=0.02):
 		sys.stdout.flush()
 		time.sleep(delay)
 		
+
 def typing_input(text, delay=0.02):
-	"""
+    """
     Typing effect to inputs
     """
-	for letter in text:
-		sys.stdout.write(letter)
-		sys.stdout.flush()
-		time.sleep(delay)
-	value = input()
-	return value
+    for letter in text:
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(delay)
+    value = input()
+    return value
+
 
 def clear_terminal():
     """
@@ -389,7 +391,10 @@ def reservation_details():
     main_menu()
 
 def add_booking_row(booking):
-    # Prepare the values for the new row
+    """
+    Function adds all reservation details to the worksheet
+    'bookings' appending new row each reservation.
+    """
     worksheet = SHEET.worksheet('bookings')
     row_values = [
         booking['Departure'],
