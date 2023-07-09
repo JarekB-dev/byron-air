@@ -119,7 +119,7 @@ def main_menu():
     while True:
         try:
             option = int(
-                typing_input(f"\nPress \033[32m1\033[0m to Make a Booking or \
+                typing_input("\nPress \033[32m1\033[0m to Make a Booking or \
 \033[34m2\033[0m to Retrieve your Booking:\n"))
             if option == 1:
                 clear_terminal()
@@ -130,9 +130,9 @@ def main_menu():
                 pull_reservation_details()
                 break
             else:
-                print(f"\033[31mInvalid option, please try again.\033[0m\n")
+                print("\033[31mInvalid option, please try again.\033[0m\n")
         except ValueError:
-            print(f"\033[31mInvalid option, please try again.\033[0m\n")
+            print("\033[31mInvalid option, please try again.\033[0m\n")
 
 
 def select_airport(direction, locked=None):
@@ -172,11 +172,11 @@ def select_airport(direction, locked=None):
 
                 return airport_to_add
             else:
-                print(f"\033[31mPlease select correct Airport.\033[0m\n")
+                print("\033[31mPlease select correct Airport.\033[0m\n")
         except ValueError:
-            print(f"\033[31mPlease enter correct Airport.\033[0m\n")
+            print("\033[31mPlease enter correct Airport.\033[0m\n")
         except IndexError:
-            print(f"\033[31mPlease enter correct Value.\033[0m\n")
+            print("\033[31mPlease enter correct Value.\033[0m\n")
 
 
 def date_of_departure():
@@ -195,14 +195,14 @@ def date_of_departure():
             dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
             current_date = datetime.now().date()
             if dep_date < current_date:
-                print(f"\033[31mPlease provide date in the future.\033[0m\n")
+                print("\033[31mPlease provide date in the future.\033[0m\n")
                 continue
             booking['Departure Date'] = dep_date.strftime('%d/%B/%Y')
             clear_terminal()
             choose_flight()
             break
         except ValueError:
-            print(f"\033[31mPlease provide date in DD/MM/YYYY format\033[0m\n")
+            print("\033[31mPlease provide date in DD/MM/YYYY format\033[0m\n")
 
 
 def generate_random_time(start_time_str, end_time_str, hours_to_add):
@@ -285,7 +285,7 @@ def choose_flight():
     print(tabulate(choose, headers='firstrow', tablefmt='fancy_grid'))
     while True:
         try:
-            flight = int(typing_input("Please choose an available flight: \n"))
+            flight = int(typing_input("Please choose an available flight:\n"))
             if flight in (1, 2, 3):
                 booking["Time of Departure"] = [early, midday, late][flight-1]
                 booking["Time of Arrival"] = [early_arr,
@@ -295,9 +295,9 @@ def choose_flight():
                 passenger_name()
                 break
             else:
-                print(f"\033[31mPlease choose a correct flight..\033[0m\n")
+                print("\033[31mPlease choose a correct flight..\033[0m\n")
         except ValueError:
-            print(f"\033[31mPlease choose a correct flight..\033[0m\n")
+            print("\033[31mPlease choose a correct flight..\033[0m\n")
 
 
 def passenger_name():
@@ -316,7 +316,7 @@ def passenger_name():
                 print(f"\033[31mPlease provide Full Name\033[0m")
                 continue
             if any(element.isdigit() for element in name):
-                print(f"\033[31mName should not contain numbers\033[0m\n")
+                print("\033[31mName should not contain numbers\033[0m\n")
                 continue
             else:
                 first_name = parts[0].capitalize()
@@ -326,7 +326,7 @@ def passenger_name():
                 total_amount_of_pax()
                 break
         except ValueError:
-            print(f"\033[31mName should not contain numbers\033[0m\n")
+            print("\033[31mName should not contain numbers\033[0m\n")
 
 
 def total_amount_of_pax():
@@ -336,9 +336,11 @@ def total_amount_of_pax():
     """
     while True:
         try:
-            pax_amount = int(input("Please provide Total amount of Passengers:\n"))
+            pax_amount = int(
+                input("Please provide Total amount of Passengers:\n"))
             if pax_amount > 10:
-                print("Total amount of Passenger cannot exceed 10\n")
+                print(
+                    "\033[31mTotal amount of Passenger cannot exceed 10\033[0m\n")
                 continue
             else:
                 booking["Total Number of Passengers"] = pax_amount
@@ -348,7 +350,7 @@ def total_amount_of_pax():
                 checked_in_bags()
                 break
         except ValueError:
-            print("Total amount of Passenger cannot exceed 10\n")
+            print("\033[31mTotal amount of Passengers cannot exceed 10\033[0m\n")
 
 
 def checked_in_bags():
@@ -364,14 +366,14 @@ def checked_in_bags():
         try:
             print("\n")
             print("There are \033[33m3\033[0m Bags allowed per passenger.\n")
-            print(f"\033[33mPlease be aware that each Bag costs 25€:\033[0m\n")
+            print("\033[33mPlease be aware that each Bag costs 25€:\033[0m\n")
             number_of_bags = int(input("Please provide amount of Bags:\n"))
             booking["Check-in Bags"] = number_of_bags
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
             if number_of_bags > max_bags:
                 print(
-                    f"\033[31mAmount of Bags cannot exceed 3 per Person.\033[0m\n")
+                    "\033[31mAmount of Bags cannot exceed 3 per Person.\033[0m\n")
                 continue
             calculated_amount = int(
                 booking["Price"]) + (number_of_bags * bag_price)
@@ -380,7 +382,7 @@ def checked_in_bags():
             reservation_details()
             break
         except ValueError:
-            print(f"\033[31mPlease enter valid number of Bags.\033[0m")
+            print("\033[31mPlease enter valid number of Bags.\033[0m\n")
 
 
 def reservation_number():
@@ -407,7 +409,7 @@ def reservation_details():
     booking_table = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    typing_input("\nPlease press any key to go back to Main Menu..\033[0m")
+    typing_input("\nPlease press any key to go back to Main Menu..")
     main_menu()
 
 
@@ -463,7 +465,7 @@ def pull_reservation_details():
         typing_input("Press any key to go back to Main Menu")
         main_menu()
     else:
-        print(f"\033[31mReservation Number not found.\033[0m")
+        print("\033[31mReservation Number not found.\033[0m")
         pull_reservation_details()
 
 
