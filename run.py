@@ -80,6 +80,16 @@ EUROPE = """
 ⣝⣪⣕⣊⣧⣓⣙⣲⣒⣱⣊⣵⣢⣝⡪⣚⣄⣃⣢⣄⣘⣉⣲⣓⣡⣄⣱⣨⣔⣌⣱⣄⣃⣦⣉⣆⣩⣂⣅⣇⣜⣠⣌⣪⣝⣆⣣⣍⣷⣼⣜⣰⣃⣞⣢⣝⣦⣙⣙⣆⣛⣌⣞⣤⣓⣜⣫⣙⣬⣓⣜⣆⣳⣥⣛⣔⣫⣱⣌⣳⣉⣎⣾⢈⡦⣁⣲⢏⣱⣈⣄⣣⣁⣺
 """
 
+LUGGAGE = """
+                    ____
+               .---[[__]]----.
+              ;-------------.|       ____
+              |             ||   .--[[__]]---.
+              |             ||  ;-----------.|
+              |             ||  |           ||
+              |_____________|/  |           ||
+                                |___________|/
+"""
 def welcome():
 	"""
 	Print logo.
@@ -131,7 +141,7 @@ def main_menu():
     Function displays main menu with option to
     make a booking or retrieve booking
     """
-
+    clear_terminal()
     welcome()
 
     menu = [
@@ -172,7 +182,7 @@ def select_airport(direction, locked=None):
         try:
             sheet_names = [s.title for s in SHEET.worksheets()[1:]]
             for index, item in enumerate(sheet_names):
-                print(index + 1, item.capitalize())
+                print(index + 1, item.title())
             print("\n")
             selection = int(
                 typing_input(f"Please choose your Country of {direction.capitalize()}:\n"))
@@ -184,7 +194,7 @@ def select_airport(direction, locked=None):
                 for airport in chosen_country_airports:
                     print(*airport)
                 chosen_airport = int(
-                    input(f"Please choose your Airport of {direction.capitalize()}: \n"))
+                    typing_input(f"\nPlease choose your Airport of {direction.capitalize()}: \n"))
 
                 airport_to_add = chosen_country_airports[chosen_airport - 1][1]
                 booking[direction] = airport_to_add
@@ -214,7 +224,7 @@ def date_of_departure():
         f"Departure Airport: {booking['Departure'].upper()}, Arrival Airport: {booking['Arrival'].upper()}")
     while True:
         try:
-            date_component = input(
+            date_component = typing_input(
                 "Please Enter departure date in DD/MM/YYYY format: \n")
             dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
             current_date = datetime.now().date()
@@ -290,7 +300,7 @@ def choose_flight():
     print(tabulate(choose, headers='firstrow', tablefmt='grid'))
     while True:
         try:
-            flight = int(input("Please choose an available flight by Selection number: \n"))
+            flight = int(typing_input("Please choose an available flight by Selection number: \n"))
             
             if flight in (1, 2, 3):
                 booking["Time of Departure"] = [early, midday, late][flight-1]
@@ -350,12 +360,13 @@ def checked_in_bags():
     per passenger
     """
     bag_price = 25
-
+    clear_terminal()
+    print(LUGGAGE)
     while True:
         try:
             print("\n")
             print("There are 3 Check-in bags allowed per passenger. \n")
-            number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation. Please be aware that each Check-in Bag costs 25€: \n"))
+            number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation.\nPlease be aware that each Check-in Bag costs 25€: \n"))
             booking["Check-in Bags"] = number_of_bags
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
@@ -384,10 +395,12 @@ def reservation_details():
     After pressing any key user is being brought back
     to the main menu.
     """
+    clear_terminal()
+    typing_print("Please see below your Reservation Details:\n")
     add_booking_row(booking)
     booking_table = [[key, value] for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    input("\n Please press any key to go back to main menu")
+    typing_input("\n Please press any key to go back to Main Menu")
     main_menu()
 
 def add_booking_row(booking):
@@ -410,25 +423,31 @@ def add_booking_row(booking):
     ]
     worksheet.append_row(row_values)
 
+            
 def pull_reservation_details():
     """
-    function enables user to input number of previously created booking to
-    view all the details of the booking.
+    Function enables the user to input the reservation number of a previously created booking
+    and view all the details of the booking.
     """
     booking_sheet = SHEET.worksheet('bookings')
-    number = input("Please enter your Reservation Number: \n")
+    number = typing_input("Please enter your Reservation Number:\n")
     number = number.upper()
-    booking_rows = booking_sheet.findall(number)
-    if booking_rows:
-        booking_row = booking_rows[0].row
-        booking_values = booking_sheet.row_values(booking_row)
+    booking_numbers = booking_sheet.col_values(10)[1:]
+
+    if number in booking_numbers:
+        row_index = booking_numbers.index(number) + 2
+        booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
         booking_details = dict(zip(headers, booking_values))
         booking_print = [[key, value] for key, value in booking_details.items()]
         print(tabulate(booking_print, headers=['Key', 'Value'], tablefmt='grid'))
+        typing_input("Press any key to go back to Main Menu")
+        main_menu()
     else:
-        print("Please provide correct Reservation Number")
+        print("Reservation Number not found.")
+        pull_reservation_details()
 
+    
 def main():
     """
     to run all functions
