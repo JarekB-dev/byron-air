@@ -475,8 +475,8 @@ def make_a_booking():
     """
     dep_airport = select_airport("Departure")
     arr_airport = select_airport("Arrival", dep_airport)
-    print(dep_airport)
-    print(arr_airport)
+    # print(dep_airport)
+    # print(arr_airport)
     date_of_departure()
 
 
