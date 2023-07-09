@@ -94,8 +94,8 @@ def europe_map():
 
 
 # Dictionary will contain all booking information and upload it to the spreadsheet
-booking = {'departure': '', 'arrival': '', 'dep_date': '', 'first_pax': '', 'total_number_of_pax': int,
-           'time_departure': '', 'time_arrival': '', 'checked_in_bags': '', 'price': '', "reservation_number": ''} 
+booking = {'Departure': '', 'Arrival': '', 'Departure Date': '', 'Main Passenger Name': '', 'Total Number of Passengers': int,
+           'Time of Departure': '', 'Time of Arrival': '', 'Check-in Bags': '', 'Price': '', "Reservation Number": ''} 
 
 
 def typing_print(text, delay=0.02):
@@ -209,7 +209,7 @@ def date_of_departure():
     """
     clear_terminal()
     print(
-        f"Departure Airport: {booking['departure'].upper()}, Arrival Airport: {booking['arrival'].upper()}")
+        f"Departure Airport: {booking['Departure'].upper()}, Arrival Airport: {booking['Arrival'].upper()}")
     while True:
         try:
             date_component = input(
@@ -219,7 +219,7 @@ def date_of_departure():
             if dep_date < current_date:
                 print("Please provide date in the future.\n")
                 continue
-            booking['dep_date'] = dep_date.strftime('%d/%B/%Y')
+            booking['Departure Date'] = dep_date.strftime('%d/%B/%Y')
             clear_terminal()
             choose_flight()
             break
@@ -262,7 +262,7 @@ currency_symbol = "€"
 price_1 = generate_flight_price(100, 200)
 price_2 = generate_flight_price(100, 200)
 price_3 = generate_flight_price(100, 200)
-flight_cost = booking["price"]
+flight_cost = booking["Price"]
 
 def format_currency(value, currency_symbol):
     """
@@ -280,20 +280,20 @@ def choose_flight():
     choose = [
         ["Selection", "Departure Airport", "Dep Time",
             "Arr Time", "Arrival Airport", "Price"],
-        ["1", booking['departure'], early, early_arr,
-            booking['arrival'], format_currency(price_1, currency_symbol)],
-        ["2", booking['departure'], midday, midday_arr,
-            booking['arrival'], format_currency(price_2, currency_symbol)],
-        ["3", booking['departure'],  late, late_arr, booking['arrival'], format_currency(price_3, currency_symbol)]]
+        ["1", booking['Departure'], early, early_arr,
+            booking['Arrival'], format_currency(price_1, currency_symbol)],
+        ["2", booking['Departure'], midday, midday_arr,
+            booking['Arrival'], format_currency(price_2, currency_symbol)],
+        ["3", booking['Departure'],  late, late_arr, booking['Arrival'], format_currency(price_3, currency_symbol)]]
     print(tabulate(choose, headers='firstrow', tablefmt='grid'))
     while True:
         try:
             flight = int(input("Please choose an available flight by Selection number: \n"))
             
             if flight in (1, 2, 3):
-                booking["time_departure"] = [early, midday, late][flight-1]
-                booking["time_arrival"] = [early_arr, midday_arr, late_arr][flight-1]
-                booking["price"] = [price_1, price_2, price_3][flight-1]
+                booking["Time of Departure"] = [early, midday, late][flight-1]
+                booking["Time of Arrival"] = [early_arr, midday_arr, late_arr][flight-1]
+                booking["Price"] = [price_1, price_2, price_3][flight-1]
                 passenger_name()
                 break
             else:
@@ -323,7 +323,7 @@ def passenger_name():
                 first_name = parts[0].capitalize()
                 last_name = parts[1].capitalize()
                 full_name = ' '.join([first_name, last_name])
-                booking["first_pax"] = full_name
+                booking["Main Passenger Name"] = full_name
                 total_amount_of_pax()
                 break
         except ValueError:
@@ -335,10 +335,10 @@ def total_amount_of_pax():
     booking dictionary
     """
     pax_amount =int(input("Please provide total amount of Passengers in the Reservation: \n"))
-    booking["total_number_of_pax"] = pax_amount
-    price = booking["price"]
+    booking["Total Number of Passengers"] = pax_amount
+    price = booking["Price"]
     total_price = pax_amount * price
-    booking["price"] = total_price
+    booking["Price"] = total_price
     checked_in_bags()
 
 def checked_in_bags():
@@ -354,14 +354,14 @@ def checked_in_bags():
             print("\n")
             print("There are 3 Check-in bags allowed per passenger. \n")
             number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation. Please be aware that each Check-in Bag costs 25€: \n"))
-            booking["checked_in_bags"] = number_of_bags
-            total_pax = booking["total_number_of_pax"]
+            booking["Check-in Bags"] = number_of_bags
+            total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
             if number_of_bags > max_bags:
                 print(f"Total amount of Checked In bags cannot exceed 3 per Passenger. Please try again..\n")
                 continue
-            calculated_amount = int(booking["price"]) + (number_of_bags * bag_price)
-            booking["price"] = calculated_amount
+            calculated_amount = int(booking["Price"]) + (number_of_bags * bag_price)
+            booking["Price"] = calculated_amount
             reservation_number()
             reservation_details()
             break
@@ -374,7 +374,7 @@ def reservation_number():
     number that contains digits and letters.
     """
     reservation_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    booking["reservation_number"] = reservation_number
+    booking["Reservation Number"] = reservation_number
 
 def reservation_details():
     """
@@ -382,17 +382,35 @@ def reservation_details():
     After pressing any key user is being brought back
     to the main menu.
     """
+    add_booking_row(booking)
     booking_table = [[key, value] for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    input("Please press any key to go back to main menu")
+    input("\n Please press any key to go back to main menu")
     main_menu()
+
+def add_booking_row(booking):
+    # Prepare the values for the new row
+    worksheet = SHEET.worksheet('bookings')
+    row_values = [
+        booking['Departure'],
+        booking['Arrival'],
+        booking['Departure Date'],
+        booking['Main Passenger Name'],
+        str(booking['Total Number of Passengers']),
+        booking['Time of Departure'],
+        booking['Time of Arrival'],
+        booking['Check-in Bags'],
+        str(booking['Price']),
+        booking['Reservation Number']
+    ]
+    worksheet.append_row(row_values)
 
 def main():
     """
     to run all functions
     """
-    dep_airport = select_airport("departure")
-    arr_airport = select_airport("arrival", dep_airport)
+    dep_airport = select_airport("Departure")
+    arr_airport = select_airport("Arrival", dep_airport)
     print(dep_airport)
     print(arr_airport)
     date_of_departure()
