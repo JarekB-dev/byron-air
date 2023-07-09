@@ -141,7 +141,7 @@ def main_menu():
     while True:
         try:
             option = int(
-                typing_input("\nPress 1 to Make a Booking or 2 to Retrieve your Booking: \n"))
+                typing_input("\n Press 1 to Make a Booking or 2 to Retrieve your Booking:\n"))
             if option == 1:
                 clear_terminal()
                 main()
@@ -173,7 +173,7 @@ def select_airport(direction, locked=None):
                 print(index + 1, item.capitalize())
             print("\n")
             selection = int(
-                typing_input(f"Please choose your Country of {direction.capitalize()}:"))
+                typing_input(f"Please choose your Country of {direction.capitalize()}:\n"))
             clear_terminal()
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
@@ -308,7 +308,6 @@ def passenger_name():
     are being capitalized by title()
     """
     clear_terminal()
-    print(booking)
     while True:
         try:
             name = input(
@@ -356,7 +355,6 @@ def checked_in_bags():
             print("There are 3 Check-in bags allowed per passenger. \n")
             number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation. Please be aware that each Check-in Bag costs 25€: \n"))
             booking["checked_in_bags"] = number_of_bags
-            print(booking)
             total_pax = booking["total_number_of_pax"]
             max_bags = int(total_pax) * 3
             if number_of_bags > max_bags:
@@ -365,6 +363,7 @@ def checked_in_bags():
             calculated_amount = int(booking["price"]) + (number_of_bags * bag_price)
             booking["price"] = calculated_amount
             reservation_number()
+            reservation_details()
             break
         except ValueError:
             print("Please enter valid number of Check-in bags.")
@@ -377,6 +376,11 @@ def reservation_number():
     reservation_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     booking["reservation_number"] = reservation_number
 
+def reservation_details():
+    booking_table = [[key, value] for key, value in booking.items()]
+    print(tabulate(booking_table, tablefmt='grid'))
+    user_input = input("Please press any key to go back to main menu")
+    main_menu()
 
 def main():
     """
@@ -386,5 +390,5 @@ def main():
     arr_airport = select_airport("arrival", dep_airport)
     print(dep_airport)
     print(arr_airport)
-
+    date_of_departure()
 main_menu()
