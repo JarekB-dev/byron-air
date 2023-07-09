@@ -75,18 +75,17 @@ Used for storing bookings and importing airport data
 
 ### Error Handling
 
-| Test | Result |
-|--|--|
-|User tries to enter non existing value in the Main Menu or no value |Error Handled|
-|User tries to enter nonexistant number or letter in Country list |Error Handled|
-|User tries to enter nonexistant number or letter in Airport list |Error Handled|
-|User tries to set the same Departure and Arrival airport |Error Handled|
-|User tries to set date in incorrect format or date from the past |Error Handled|
-|User tries to select non existing flight, input letter or input no value |Error Handled|
-|User tries to enter just 1 part of the name, name containing digits or no value |Error Handled|
-|User tries to enter more than 10 of total passengers or no value |Error Handled|
-|User tries to set number of Check-in bags more than allowed or input no value |Error Handled|
-
+| Test                                                                            | Result        |
+| ------------------------------------------------------------------------------- | ------------- |
+| User tries to enter non existing value in the Main Menu or no value             | Error Handled |
+| User tries to enter nonexistant number or letter in Country list                | Error Handled |
+| User tries to enter nonexistant number or letter in Airport list                | Error Handled |
+| User tries to set the same Departure and Arrival airport                        | Error Handled |
+| User tries to set date in incorrect format or date from the past                | Error Handled |
+| User tries to select non existing flight, input letter or input no value        | Error Handled |
+| User tries to enter just 1 part of the name, name containing digits or no value | Error Handled |
+| User tries to enter more than 10 of total passengers or no value                | Error Handled |
+| User tries to set number of Check-in bags more than allowed or input no value   | Error Handled |
 
 ### Bookings
 
@@ -100,7 +99,8 @@ and with correct data presented to the user as below:
 I have used Python code checker provided by Code Institute [Link](https://pep8ci.herokuapp.com/). Result shown below:
 
 ![CI Linter](assets/images/ci_linter.png)
->Most errors are due to how LOGO is being created and couple of too long lines which are because of amount of data some statements are trying to pull.
+
+> Most errors are due to how LOGO is being created and couple of too long lines which are because of amount of data some statements are trying to pull.
 
 <a name="bugs"></a>
 
@@ -109,20 +109,23 @@ I have used Python code checker provided by Code Institute [Link](https://pep8ci
 During development of the application I have encountered multiple bugs, most of them have been resolved:
 
 - User was trying to set the same departure and arrival airport.
-  >This bug has been resolved for adding extra argument to flight direction function that check if both arguements are the same and if so then print an error.
+
+  > This bug has been resolved for adding extra argument to flight direction function that check if both arguements are the same and if so then print an error.
 
 - User was not able to choose Country/Airport by index number but by Country/Airport name.
+
   > To make it easier for the user to select Airport or country I wanted to make sure that those can be selected by entering index number. Method enumerate() came in handy as it allowed me to iterate over worksheet titles and assign them index numbers.
 
 - User was able to type during typing_input function.
+
   > Adding return statement to typing_input prevented user to insert characters during typing effect function and input is being added after function is completed.
 
 - User was able to choose date from the past.
+
   > This would make no sense to book flight tickets for past dates and had to resolve it with statement if current date < inputted date in date_of_departure function.
 
 - User was able to see booking worksheet on Country list.
   > In this case setting [1:] came in handy to start iteration from second worksheet effectively skipping first Bookings worksheet.
-
 
 ### Unfixed bugs
 
@@ -146,25 +149,25 @@ During development of the application I have encountered multiple bugs, most of 
 
 - Add data from CREDS.json to link Google Sheet.
 
-- Buildpacks now need to be added. 
+- Buildpacks now need to be added.
 
 - These install future dependancies that we need outside of the requirements file.
 
-- Select Python first and then node.js and click save. 
+- Select Python first and then node.js and click save.
 
 $${\color{red}Make \space sure \space they \space are\space in\space this\space order\space !!!}$$
 
-- Then go to the deploy section and choose your deployment method. 
+- Then go to the deploy section and choose your deployment method.
 
 - To connect with github select github and confirm.
 
 - Search for your repository select it and click connect.
 
-- You can choose to either deploy using automatic deploys which means heroku will rebuild the app everytime you push your changes. 
+- You can choose to either deploy using automatic deploys which means heroku will rebuild the app everytime you push your changes.
 
-- For this option choose the branch to deploy and click enable automatic deploys. 
+- For this option choose the branch to deploy and click enable automatic deploys.
 
-- This can be changed at a later date to manual. 
+- This can be changed at a later date to manual.
 
 - Manual deployment deploys the current state of a branch.
 
@@ -177,16 +180,35 @@ $${\color{red}Make \space sure \space they \space are\space in\space this\space 
 # $${\color{orange}Content}$$
 
 ### [ASCIIART.EU](https://www.asciiart.eu/)
+
 > Used for the logo and luggage art.
 
 ### Code Institute
+
 > Project created in line with course content and within project 3 scope and partially inspired by project 3 walkthrough.
 
 ### w3 schools
+
 > Used to reference Python Structure
 
 ### Youtube
+
 > Youtuber [b001](https://www.youtube.com/@b001) and his explanations helped me a lot with syntax problems and for loops.
 
 ### Stack Overflow
+
 > Used to resolve issues with clearing terminal as well as Aiports/Countries indexing problem.
+
+
+<a name="acknowledgments"></a>
+
+# $${\color{orange}Acknowledgments}$$
+
+### Derek McAuley
+
+My Mentor that provided me with helpful tips, amazing feedback and continuous support during this course.
+
+### Code Instutute Community
+
+Great community that is always willing to help with any issues course participants are facing. I am very honored to be part of it.
+
