@@ -127,3 +127,47 @@ During development of the application I have encountered multiple bugs, most of 
 ### Unfixed bugs
 
 - Currently I have a problem when User is trying to input too long name then Reservation Details table is displayed incorrectly in the console due to 80 character width.
+
+<a name="deployment"></a>
+
+# $${\color{orange}Deployment}$$
+
+- Navigate to heroku.com & log in.
+
+- Click "new" and create a new App.
+
+- Give the application a name and then choose your region and Click "Create app".
+
+- On the next page click on the Settings tab to adjust the settings.
+
+- Click on the 'config vars' button.
+
+- Supply a KEY of PORT and it's value of 8000. Then click on the "add" button.
+
+- Add data from CREDS.json to link Google Sheet.
+
+- Buildpacks now need to be added. 
+
+- These install future dependancies that we need outside of the requirements file.
+
+- Select Python first and then node.js and click save. 
+
+$${\color{red}Make \space sure \space they \space are\space in\space this\space order\space !!!}$$
+
+- Then go to the deploy section and choose your deployment method. 
+
+- To connect with github select github and confirm.
+
+- Search for your repository select it and click connect.
+
+- You can choose to either deploy using automatic deploys which means heroku will rebuild the app everytime you push your changes. 
+
+- For this option choose the branch to deploy and click enable automatic deploys. 
+
+- This can be changed at a later date to manual. 
+
+- Manual deployment deploys the current state of a branch.
+
+- Click deploy branch.
+
+- We can now click on the open App button above to view our application.
