@@ -86,3 +86,18 @@ Used for storing bookings and importing airport data
 |User tries to enter just 1 part of the name, name containing digits or no value |Error Handled|
 |User tries to enter more than 10 of total passengers or no value |Error Handled|
 |User tries to set number of Check-in bags more than allowed or input no value |Error Handled|
+
+
+### Bookings
+
+All information - if valid - is being correctly added to the 'bookings' worksheet in below format:
+![Booking Format](assets/images/booking-worksheet.png)
+and with correct data presented to the user as below:
+![Reservation Details](assets/images/reservation_details.png)
+
+### CI Linter
+
+I have used Python code checker provided by Code Institute [Link](https://pep8ci.herokuapp.com/). Result shown below:
+
+![CI Linter](assets/images/ci_linter.png)
+>Most errors are due to how LOGO is being created and couple of too long lines which are because of amount of data some statements are trying to pull.
