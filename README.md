@@ -11,7 +11,7 @@
 
 ## Table of Contents
 
-1. [Preplanning](#ux)
+1. [Preplanning](#preplanning)
 2. [Features to Implement](#features)
 3. [Technologies Used](#technologies)
 4. [Testing](#testing)
@@ -19,6 +19,17 @@
 6. [Deployment](#deployment)
 7. [Content](#resources)
 8. [Acknowledgments](#acknowledgments)
+
+
+<a name="preplanning"></a>
+
+# $${\color{orange}Preplanning \space Phase}$$
+
+### Flow
+
+As an employee in Airline industry, I decided to create Airline Ticket Booking System as my Project 3. Before developing ByronAir application I had to come up with general logic that application will follow. I used Lucid to generate flow chart that helped me to visualize what application needs to do.
+
+![Lucid Chart](assets/images/flow_chart.png)
 
 <a name="features"></a>
 
