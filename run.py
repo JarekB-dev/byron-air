@@ -377,9 +377,14 @@ def reservation_number():
     booking["reservation_number"] = reservation_number
 
 def reservation_details():
+    """
+    function print details of the reservation.
+    After pressing any key user is being brought back
+    to the main menu.
+    """
     booking_table = [[key, value] for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    user_input = input("Please press any key to go back to main menu")
+    input("Please press any key to go back to main menu")
     main_menu()
 
 def main():
