@@ -94,7 +94,7 @@ def welcome():
 	"""
 	Print logo.
 	"""
-	print(LOGO)
+	print(f"\033[33m{LOGO}\033[0m")
 
 def europe_map():
 	"""
@@ -136,6 +136,21 @@ def clear_terminal():
 	"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def print_color(text, color):
+    colors = {
+        'black': '\033[30m',
+        'red': '\033[31m',
+        'green': '\033[32m',
+        'yellow': '\033[33m',
+        'blue': '\033[34m',
+        'magenta': '\033[35m',
+        'cyan': '\033[36m',
+        'white': '\033[37m',
+        'reset': '\033[0m'
+    }
+    if color in colors:
+        print(f"{colors[color]}{text}{colors['reset']}")
+
 def main_menu():
     """
     Function displays main menu with option to
@@ -145,15 +160,15 @@ def main_menu():
     welcome()
 
     menu = [
-        ["1", "Make a Booking"],
-        ["2", "Retrieve Booking"]
+        ["\033[32m1", "Make a Booking\033[0m"],
+        ["\033[34m2", "Retrieve Booking\033[0m"]
     ]
 
     typing_print(tabulate(menu))
     while True:
         try:
             option = int(
-                typing_input("\n Press 1 to Make a Booking or 2 to Retrieve your Booking:\n"))
+                typing_input(f"\nPress \033[32m1\033[0m to Make a Booking or \033[34m2\033[0m to Retrieve your Booking:\n"))
             if option == 1:
                 clear_terminal()
                 main()
@@ -163,9 +178,9 @@ def main_menu():
                 pull_reservation_details()
                 break
             else:
-                print("Invalid option, please try again.\n")
+                print(f"\033[31mInvalid option, please try again.\033[0m\n")
         except ValueError:
-            print("Invalid option, please try again.\n")
+            print(f"\033[31mInvalid option, please try again.\033[0m\n")
 
 
 def select_airport(direction, locked=None):
@@ -182,7 +197,7 @@ def select_airport(direction, locked=None):
         try:
             sheet_names = [s.title for s in SHEET.worksheets()[1:]]
             for index, item in enumerate(sheet_names):
-                print(index + 1, item.title())
+                print(f"\033[32m{index + 1}\033[0m {item.title()}")
             print("\n")
             selection = int(
                 typing_input(f"Please choose your Country of {direction.capitalize()}:\n"))
@@ -192,7 +207,7 @@ def select_airport(direction, locked=None):
                     sheet_names[selection - 1]).get_all_values()[1:]
 
                 for airport in chosen_country_airports:
-                    print(*airport)
+                    print(f"\033[32m{airport[0]}\033[0m {airport[1]}")
                 chosen_airport = int(
                     typing_input(f"\nPlease choose your Airport of {direction.capitalize()}: \n"))
 
@@ -202,16 +217,16 @@ def select_airport(direction, locked=None):
                 if (locked):
                     if (locked == airport_to_add):
                         print(
-                            "Arrival Airport must be different than Departure Airport. Please try again.\n")
+                            f"\033[31mArrival Airport must be different than Departure Airport. Please try again.\033[0m\n")
                         return select_airport(direction, locked)
 
                 return airport_to_add
             else:
-                print("Please select correct Airport.\n")
+                print(f"\033[31mPlease select correct Airport.\033[0m\n")
         except ValueError:
-            print("Please enter correct Airport.\n")
+            print(f"\033[31mPlease enter correct Airport.\033[0m\n")
         except IndexError:
-            print("Please enter correct Value.\n")
+            print(f"\033[31mPlease enter correct Value.\033[0m\n")
 
 
 def date_of_departure():
@@ -221,7 +236,7 @@ def date_of_departure():
     """
     clear_terminal()
     print(
-        f"Departure Airport: {booking['Departure'].upper()}, Arrival Airport: {booking['Arrival'].upper()}\n")
+        f"Departure Airport: \033[36m{booking['Departure'].upper()}\033[0m, Arrival Airport: \033[35m{booking['Arrival'].upper()}\033[0m\n")
     while True:
         try:
             date_component = typing_input(
@@ -229,14 +244,14 @@ def date_of_departure():
             dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
             current_date = datetime.now().date()
             if dep_date < current_date:
-                print("Please provide date in the future.\n")
+                print(f"\033[31mPlease provide date in the future.\033[0m\n")
                 continue
             booking['Departure Date'] = dep_date.strftime('%d/%B/%Y')
             clear_terminal()
             choose_flight()
             break
         except ValueError:
-            print("Please provide correct date in DD/MM/YYYY format.\n")
+            print(f"\033[31mPlease provide correct date in DD/MM/YYYY format.\033[0m\n")
 
 def generate_random_time(start_time_str, end_time_str, hours_to_add):
     """
@@ -292,11 +307,11 @@ def choose_flight():
     choose = [
         ["Selection", "Departure Airport", "Dep Time",
             "Arr Time", "Arrival Airport", "Price"],
-        ["1", booking['Departure'], early, early_arr,
-            booking['Arrival'], format_currency(price_1, currency_symbol)],
-        ["2", booking['Departure'], midday, midday_arr,
-            booking['Arrival'], format_currency(price_2, currency_symbol)],
-        ["3", booking['Departure'],  late, late_arr, booking['Arrival'], format_currency(price_3, currency_symbol)]]
+        ["\033[32m1\033[0m", f"\033[36m{booking['Departure']}\033[0m", early, early_arr,
+            f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_1, currency_symbol)],
+        ["\033[32m2\033[0m", f"\033[36m{booking['Departure']}\033[0m", midday, midday_arr,
+            f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_2, currency_symbol)],
+        ["\033[32m3\033[0m", f"\033[36m{booking['Departure']}\033[0m",  late, late_arr, f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_3, currency_symbol)]]
     print(tabulate(choose, headers='firstrow', tablefmt='grid'))
     while True:
         try:
@@ -309,9 +324,9 @@ def choose_flight():
                 passenger_name()
                 break
             else:
-                print("Please choose a correct flight from the list..\n")
+                print(f"\033[31mPlease choose a correct flight from the list..\033[0m\n")
         except ValueError:
-            print("Please choose a correct flight from the list..\n")
+            print(f"\033[31mPlease choose a correct flight from the list..\033[0m\n")
 
 def passenger_name():
     """
@@ -326,10 +341,10 @@ def passenger_name():
                 "Please enter First and Last Name of main Passenger:\n")
             parts = name.split()
             if len(parts) < 2:
-                print("Please provide Full Name")
+                print(f"\033[31mPlease provide Full Name\033[0m")
                 continue
             if any(element.isdigit() for element in name):
-                print("Name and Last name should not contain numbers\n")
+                print(f"\033[31mName and Last name should not contain numbers\033[0m\n")
                 continue
             else:
                 first_name = parts[0].capitalize()
@@ -339,14 +354,14 @@ def passenger_name():
                 total_amount_of_pax()
                 break
         except ValueError:
-            print("Name and Last name should not contain numbers\n")
+            print(f"\033[31mName and Last name should not contain numbers\033[0m\n")
 
 def total_amount_of_pax():
     """
     function add total amount of passengers to
     booking dictionary
     """
-    pax_amount =int(input("Please provide total amount of Passengers in the Reservation:\n"))
+    pax_amount =int(input("Please provide Total amount of Passengers in the Reservation:\n"))
     booking["Total Number of Passengers"] = pax_amount
     price = booking["Price"]
     total_price = pax_amount * price
@@ -365,13 +380,13 @@ def checked_in_bags():
     while True:
         try:
             print("\n")
-            print("There are 3 Check-in bags allowed per passenger. \n")
-            number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation.\nPlease be aware that each Check-in Bag costs 25€: \n"))
+            print("There are \033[33m3\033[0m Check-in bags allowed per passenger. \n")
+            number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation.\n\033[33mPlease be aware that each Check-in Bag costs 25€:\033[0m\n"))
             booking["Check-in Bags"] = number_of_bags
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
             if number_of_bags > max_bags:
-                print(f"Total amount of Checked In bags cannot exceed 3 per Passenger. Please try again..\n")
+                print(f"\033[31mTotal amount of Checked In bags cannot exceed 3 per Passenger. Please try again..\033[0m\n")
                 continue
             calculated_amount = int(booking["Price"]) + (number_of_bags * bag_price)
             booking["Price"] = calculated_amount
@@ -379,7 +394,7 @@ def checked_in_bags():
             reservation_details()
             break
         except ValueError:
-            print("Please enter valid number of Check-in bags.")
+            print(f"\033[31mPlease enter valid number of Check-in bags.\033[0m")
 
 def reservation_number():
     """
@@ -396,11 +411,11 @@ def reservation_details():
     to the main menu.
     """
     clear_terminal()
-    typing_print("Please see below your Reservation Details:\n")
+    typing_print(f"Please see below details for your Reservation Number: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
-    booking_table = [[key, value] for key, value in booking.items()]
+    booking_table = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"] for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
-    typing_input("\nPlease press any key to go back to Main Menu")
+    typing_input("\nPlease press any key to go back to Main Menu..\033[0m")
     main_menu()
 
 def add_booking_row(booking):
@@ -446,13 +461,13 @@ def pull_reservation_details():
             if not price_value.startswith(currency_symbol):
                 formatted_price = f"{currency_symbol} {price_value}"
                 booking_details[price] = formatted_price
-        booking_print = [[key, value] for key, value in booking_details.items()]
-        typing_print(f"Please see details of Reservation Number: {number}\n")
-        print(tabulate(booking_print, headers=['Key', 'Value'], tablefmt='grid'))
+        booking_print = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"] for key, value in booking_details.items()]
+        typing_print(f"Please see details of Reservation Number: \033[33m{number}\033[0m\n")
+        print(tabulate(booking_print, tablefmt='grid'))
         typing_input("Press any key to go back to Main Menu")
         main_menu()
     else:
-        print("Reservation Number not found.")
+        print(f"\033[31mReservation Number not found.\033[0m")
         pull_reservation_details()
 
     
