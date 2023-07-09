@@ -4,7 +4,8 @@ import sys, time
 from tabulate import tabulate
 import os
 import random
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
+import string
 
 
 SCOPE = [
@@ -339,6 +340,43 @@ def total_amount_of_pax():
     price = booking["price"]
     total_price = pax_amount * price
     booking["price"] = total_price
+    checked_in_bags()
+
+def checked_in_bags():
+    """
+    function enables user to add amount of checked-in bags.
+    Each bag costs 25 and user can only choose max 3 bags
+    per passenger
+    """
+    bag_price = 25
+
+    while True:
+        try:
+            print("\n")
+            print("There are 3 Check-in bags allowed per passenger. \n")
+            number_of_bags = int(input("Please provide amount of Check-in Bags in your Reservation. Please be aware that each Check-in Bag costs 25€: \n"))
+            booking["checked_in_bags"] = number_of_bags
+            print(booking)
+            total_pax = booking["total_number_of_pax"]
+            max_bags = int(total_pax) * 3
+            if number_of_bags > max_bags:
+                print(f"Total amount of Checked In bags cannot exceed 3 per Passenger. Please try again..\n")
+                continue
+            calculated_amount = int(booking["price"]) + (number_of_bags * bag_price)
+            booking["price"] = calculated_amount
+            reservation_number()
+            break
+        except ValueError:
+            print("Please enter valid number of Check-in bags.")
+
+def reservation_number():
+    """
+    function creates random 6 characters long reservation
+    number that contains digits and letters.
+    """
+    reservation_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    booking["reservation_number"] = reservation_number
+
 
 def main():
     """
