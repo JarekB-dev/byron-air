@@ -324,10 +324,21 @@ def passenger_name():
                 last_name = parts[1].capitalize()
                 full_name = ' '.join([first_name, last_name])
                 booking["first_pax"] = full_name
-                print(booking)
+                total_amount_of_pax()
                 break
         except ValueError:
             print("Name and Last name should not contain numbers\n")
+
+def total_amount_of_pax():
+    """
+    function add total amount of passengers to
+    booking dictionary
+    """
+    pax_amount =int(input("Please provide total amount of Passengers in the Reservation: \n"))
+    booking["total_number_of_pax"] = pax_amount
+    price = booking["price"]
+    total_price = pax_amount * price
+    booking["price"] = total_price
 
 def main():
     """
