@@ -175,8 +175,10 @@ def select_airport(direction, locked=None):
                 print("\033[31mPlease select correct Airport.\033[0m\n")
         except ValueError:
             print("\033[31mPlease enter correct Airport.\033[0m\n")
+            clear_terminal()
         except IndexError:
             print("\033[31mPlease enter correct Value.\033[0m\n")
+            clear_terminal()
 
 
 def date_of_departure():
