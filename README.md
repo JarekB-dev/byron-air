@@ -171,3 +171,22 @@ $${\color{red}Make \space sure \space they \space are\space in\space this\space 
 - Click deploy branch.
 
 - We can now click on the open App button above to view our application.
+
+<a name="features"></a>
+
+# $${\color{orange}Content}$$
+
+### [ASCIIART.EU](https://www.asciiart.eu/)
+> Used for the logo and luggage art.
+
+### Code Institute
+> Project created in line with course content and within project 3 scope and partially inspired by project 3 walkthrough.
+
+### w3 schools
+> Used to reference Python Structure
+
+### Youtube
+> Youtuber [b001](https://www.youtube.com/@b001) and his explanations helped me a lot with syntax problems and for loops.
+
+### Stack Overflow
+> Used to resolve issues with clearing terminal as well as Aiports/Countries indexing problem.
