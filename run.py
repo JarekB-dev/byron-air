@@ -238,17 +238,17 @@ def choose_flight():
     """
     Function enables user to choose 1 out of 3 randomly generated flights.
     Departure and arrival has already been selected before.
-    Time and price is being generated randoomly."""
+    Time and price is being generated randomly."""
     global booking
     choose = [
-        ["Selection", "Departure Airport", "Dep Time",
-            "Arr Time", "Arrival Airport", "Price"],
+        ["Num", "Departure", "Dep Time",
+            "Arr Time", "Arrival", "Price"],
         ["\033[32m1\033[0m", f"\033[36m{booking['Departure']}\033[0m", early, early_arr,
             f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_1, currency_symbol)],
         ["\033[32m2\033[0m", f"\033[36m{booking['Departure']}\033[0m", midday, midday_arr,
             f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_2, currency_symbol)],
         ["\033[32m3\033[0m", f"\033[36m{booking['Departure']}\033[0m",  late, late_arr, f"\033[35m{booking['Arrival']}\033[0m", format_currency(price_3, currency_symbol)]]
-    print(tabulate(choose, headers='firstrow', tablefmt='grid'))
+    print(tabulate(choose, headers='firstrow', tablefmt='fancy_grid'))
     while True:
         try:
             flight = int(typing_input("Please choose an available flight by Selection number: \n"))
