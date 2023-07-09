@@ -34,3 +34,26 @@
 
 - Booking confirmation on email.
 > Currently, Booking is only being created in the spreadsheet and Reservation Number is being presented to the User - if number will be forgotten then there is no way to retrieve booking. I am planning to send all booking information to user email after creating Booking.
+
+
+<a name="technologies"></a>
+
+# $${\color{orange}Technology \space Used}$$
+
+### [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+Used to create the application
+
+### [Heroku](https://heroku.com)
+Used to deploy and host the application
+
+### [Github](https://github.com)
+Used to store the code
+
+### [Gitpod](https://gitpod.io)
+IDE used for creating the application
+
+### [Git](https://en.wikipedia.org/wiki/Git)
+Used for version control
+
+### [Google Sheets/Drive API](https://developers.google.com/sheets/api/reference/rest)
+Used for storing bookings and importing airport data

@@ -151,7 +151,7 @@ def select_airport(direction, locked=None):
                 print(f"\033[32m{index + 1}\033[0m {item.title()}")
             print("\n")
             selection = int(
-                typing_input(f"Please choose your Country of {direction.capitalize()}:\n"))
+                typing_input(f"Please enter Country of {direction.capitalize()}:\n"))
             clear_terminal()
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
@@ -167,7 +167,7 @@ def select_airport(direction, locked=None):
                 if (locked):
                     if (locked == airport_to_add):
                         print(
-                            f"\033[31mArrival Airport must be different than Departure.\033[0m\n")
+                            f"\033[31mArrival must be different than Departure.\033[0m\n")
                         return select_airport(direction, locked)
 
                 return airport_to_add
@@ -361,9 +361,11 @@ def checked_in_bags():
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
             if number_of_bags > max_bags:
-                print(f"\033[31mTotal amount of Bags cannot exceed 3 per Passenger.\033[0m\n")
+                print(
+                    f"\033[31mAmount of Bags cannot exceed 3 per Person.\033[0m\n")
                 continue
-            calculated_amount = int(booking["Price"]) + (number_of_bags * bag_price)
+            calculated_amount = int(
+                booking["Price"]) + (number_of_bags * bag_price)
             booking["Price"] = calculated_amount
             reservation_number()
             reservation_details()
@@ -377,7 +379,8 @@ def reservation_number():
     function creates random 6 characters long reservation
     number that contains digits and letters.
     """
-    r_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    r_number = ''.join(random.choices(
+        string.ascii_uppercase + string.digits, k=6))
     booking["Reservation Number"] = r_number.upper()
 
 
@@ -388,7 +391,8 @@ def reservation_details():
     to the main menu.
     """
     clear_terminal()
-    typing_print(f"Details of Reservation Number: \033[33m{booking['Reservation Number']}:\033[0m\n")
+    typing_print(
+        f"Reservation: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
     booking_table = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
@@ -443,7 +447,8 @@ def pull_reservation_details():
                 booking_details[price] = formatted_price
         booking_print = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
-        typing_print(f"Please see details of Reservation Number: \033[33m{number}\033[0m\n")
+        typing_print(
+            f"Please see details of Reservation: \033[33m{number}\033[0m\n")
         print(tabulate(booking_print, tablefmt='grid'))
         typing_input("Press any key to go back to Main Menu")
         main_menu()
