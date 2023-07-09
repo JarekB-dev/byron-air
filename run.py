@@ -136,21 +136,6 @@ def clear_terminal():
 	"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def print_color(text, color):
-    colors = {
-        'black': '\033[30m',
-        'red': '\033[31m',
-        'green': '\033[32m',
-        'yellow': '\033[33m',
-        'blue': '\033[34m',
-        'magenta': '\033[35m',
-        'cyan': '\033[36m',
-        'white': '\033[37m',
-        'reset': '\033[0m'
-    }
-    if color in colors:
-        print(f"{colors[color]}{text}{colors['reset']}")
-
 def main_menu():
     """
     Function displays main menu with option to
