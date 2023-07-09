@@ -334,12 +334,21 @@ def total_amount_of_pax():
     function add total amount of passengers to
     booking dictionary
     """
-    pax_amount = int(input("Please provide Total amount of Passengers:\n"))
-    booking["Total Number of Passengers"] = pax_amount
-    price = booking["Price"]
-    total_price = pax_amount * price
-    booking["Price"] = total_price
-    checked_in_bags()
+    while True:
+        try:
+            pax_amount = int(input("Please provide Total amount of Passengers:\n"))
+            if pax_amount > 10:
+                print("Total amount of Passenger cannot exceed 10\n")
+                continue
+            else:
+                booking["Total Number of Passengers"] = pax_amount
+                price = booking["Price"]
+                total_price = pax_amount * price
+                booking["Price"] = total_price
+                checked_in_bags()
+                break
+        except ValueError:
+            print("Total amount of Passenger cannot exceed 10\n")
 
 
 def checked_in_bags():
@@ -394,6 +403,7 @@ def reservation_details():
     typing_print(
         f"Reservation: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
+    booking['Price'] = f"{currency_symbol}{booking['Price']}"
     booking_table = [[f"\033[35m{key}\033[0m", f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
