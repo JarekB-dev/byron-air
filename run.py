@@ -6,7 +6,7 @@ from tabulate import tabulate  # table prints
 import os  # used for clearing terminal
 import random  # random time and price
 from datetime import datetime, timedelta  # time operations
-import string  # string operations
+import string  # for random reservation number
 
 
 SCOPE = [
@@ -158,7 +158,7 @@ def select_airport(direction, locked=None):
             selection = int(
                 typing_input(f"Please enter Country of {direction.capitalize()}:\n"))
             clear_terminal()
-
+            # Get the airports for the selected country from the worksheet
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
                     sheet_names[selection - 1]).get_all_values()[1:]
@@ -228,12 +228,14 @@ def generate_random_time(start_time_str, end_time_str, hours_to_add):
     """
     start_time = datetime.strptime(start_time_str, '%H:%M').time()
     end_time = datetime.strptime(end_time_str, '%H:%M').time()
+    # Calculate time range in minutes
     time_range = (end_time.hour - start_time.hour) * 60 + \
         (end_time.minute - start_time.minute)
+    # Generate random number of minutes within range
     random_minutes = random.randint(0, time_range)
+    # Combine the random minutes with start time and add additional hours
     random_time = datetime.combine(
         datetime.today(), start_time) + timedelta(minutes=random_minutes)
-
     # Add set extra hours to randomly generated time
     random_time += timedelta(hours=hours_to_add)
     return random_time.strftime("%H:%M")
@@ -279,6 +281,8 @@ def choose_flight():
     Departure and arrival has already been selected before.
     Time and price is being generated randomly."""
     global booking
+
+    #List of available flights for user to choose from
     choose = [
         ["Num", "Departure", "Dep Time",
             "Arr Time", "Arrival", "Price"],
