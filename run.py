@@ -488,19 +488,16 @@ def pull_reservation_details():
     booking_numbers = booking_sheet.col_values(10)[1:]
 
     if number in booking_numbers:
+        # Get row index of the reservation number
         row_index = booking_numbers.index(number) + 2
+        #Retrieve all values from correct row
         booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
+        # Creates dict with headers as keys and rows as values.
         booking_details = dict(zip(headers, booking_values))
-        price = 'Price'
-
-        if price in booking_details:
-            price_value = booking_details[price]
-
-            # Add CURRENCY SYMBOL to Resv print but do not save it
-            if not price_value.startswith(CURRENCY_SYMBOL):
-                formatted_price = f"{CURRENCY_SYMBOL} {price_value}"
-                booking_details[price] = formatted_price
+        # Add currency symbol to printed price
+        if 'Price' in booking_details:
+            booking_details['Price'] = f"{CURRENCY_SYMBOL} {booking_details['Price']}"
         booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
                          
