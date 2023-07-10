@@ -338,8 +338,9 @@ def total_amount_of_pax():
     """
     while True:
         try:
+            print("\033[33mMaximum number of Passengers is 10\033[0m")
             pax_amount = int(
-                input("Please provide Total amount of Passengers:\n"))
+                input("\nPlease provide Total amount of Passengers:\n"))
             if pax_amount > 10:
                 print(
                     "\033[31mTotal amount of Passenger cannot exceed 10\033[0m\n")
