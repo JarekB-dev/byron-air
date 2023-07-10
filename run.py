@@ -1,12 +1,12 @@
-import gspread #to manage Google sheets
+import gspread  # to manage Google sheets
 from google.oauth2.service_account import Credentials
-import sys # used typing effect
-import time # for time operations
-from tabulate import tabulate # table prints
-import os # used for clearing terminal
-import random #random time and price
-from datetime import datetime, timedelta # time operations
-import string #string operations
+import sys  # used typing effect
+import time  # for time operations
+from tabulate import tabulate  # table prints
+import os  # used for clearing terminal
+import random  # random time and price
+from datetime import datetime, timedelta  # time operations
+import string  # string operations
 
 
 SCOPE = [
@@ -161,13 +161,14 @@ def select_airport(direction, locked=None):
 
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
-                    sheet_names[selection - 1]).get_all_values()[1:]                   
+                    sheet_names[selection - 1]).get_all_values()[1:]
+                
                 # Print all airports included in selected Country.
                 for airport in chosen_country_airports:
                     print(f"\033[32m{airport[0]}\033[0m {airport[1]}")
                 chosen_airport = int(
                     typing_input(f"\nPlease choose your Airport of {direction.capitalize()}:\n"))
-                # Remove one from chosen airport to connect it to correct worksheet.
+                # Remove 1 from chosen airport to connect it to worksheet.
                 airport_to_add = chosen_country_airports[chosen_airport - 1][1]
                 booking[direction] = airport_to_add
 
