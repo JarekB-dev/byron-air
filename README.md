@@ -25,11 +25,32 @@
 
 # $${\color{orange}Preplanning \space Phase}$$
 
-### Flow
+## Flow
 
 As an employee in Airline industry, I decided to create Airline Ticket Booking System as my Project 3. Before developing ByronAir application I had to come up with general logic that application will follow. I used Lucid to generate flow chart that helped me to visualize what application needs to do.
 
 ![Lucid Chart](assets/images/flow_chart.png)
+
+### Flow of Creating a Booking
+
+
+
+## Structure
+
+### Google Sheets
+
+- I have created Google Sheet to pull Countries/Airports information as well as adding Reservations created by the User.
+
+- Spreadsheet contains 17 Worksheets with European Countries and Airports inside them.
+
+- First Worksheet labeled "Bookings" contains all bookings information created by the User. Those information can be retrieved by the User via inputting Reservation Number in the application.
+
+
+
+
+### User Experience
+
+User while using the application show have clear understanding of what is happening on the screen and what is being expected from the User. Each step explains what input is being allowed and what are the choices to select from
 
 <a name="features"></a>
 
