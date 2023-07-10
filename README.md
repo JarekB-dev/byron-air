@@ -159,8 +159,11 @@ Used for storing bookings and importing airport data
 ### Bookings
 
 All information - if valid - is being correctly added to the 'bookings' worksheet in below format:
+
 ![Booking Format](assets/images/booking-worksheet.png)
+
 and with correct data presented to the user as below:
+
 ![Reservation Details](assets/images/reservation_details.png)
 
 ### CI Linter
