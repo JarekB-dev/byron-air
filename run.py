@@ -64,7 +64,7 @@ booking = {
     'Arrival': '',
     'Departure Date': '',
     'Main Passenger Name': '',
-    'Total Number of Passengers': int,
+    'Total Number of Passengers': '',
     'Time of Departure': '',
     'Time of Arrival': '',
     'Check-in Bags': '',
@@ -146,24 +146,29 @@ def select_airport(direction, locked=None):
 
     while True:
         try:
+            # Iterate through worksheet titles skiping the first one
             sheet_names = [s.title for s in SHEET.worksheets()[1:]]
             for index, item in enumerate(sheet_names):
+                # add 1 to the index as first worksheet is skipped.
                 print(f"\033[32m{index + 1}\033[0m {item.title()}")
             print("\n")
             selection = int(
                 typing_input(f"Please enter Country of {direction.capitalize()}:\n"))
             clear_terminal()
+
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
-                    sheet_names[selection - 1]).get_all_values()[1:]
-
+                    sheet_names[selection - 1]).get_all_values()[1:]                   
+                # Print all airports included in selected Country.
                 for airport in chosen_country_airports:
                     print(f"\033[32m{airport[0]}\033[0m {airport[1]}")
                 chosen_airport = int(
                     typing_input(f"\nPlease choose your Airport of {direction.capitalize()}:\n"))
+                # Remove one from chosen airport to connect it to correct worksheet.
                 airport_to_add = chosen_country_airports[chosen_airport - 1][1]
                 booking[direction] = airport_to_add
 
+                # validations to check if both attributes are not the same.
                 if (locked):
                     if (locked == airport_to_add):
                         print(
@@ -196,9 +201,12 @@ def date_of_departure():
                 "Please Enter departure date in DD/MM/YYYY format:\n")
             dep_date = datetime.strptime(date_component, "%d/%m/%Y").date()
             current_date = datetime.now().date()
+
+            # Check to make sure that users date is in the future.
             if dep_date < current_date:
                 print("\033[31mPlease provide date in the future.\033[0m\n")
                 continue
+
             booking['Departure Date'] = dep_date.strftime('%d/%B/%Y')
             clear_terminal()
             choose_flight()
@@ -209,8 +217,8 @@ def date_of_departure():
 
 def generate_random_time(start_time_str, end_time_str, hours_to_add):
     """
-    Function generates random time for departure and random time for arrival,
-    but with additionaal 2 hours added
+    Function generates random time for departure and random time for arrival
+    within chosen range. Arrival time with additional 2 hours added.
     """
     start_time = datetime.strptime(start_time_str, '%H:%M').time()
     end_time = datetime.strptime(end_time_str, '%H:%M').time()
@@ -219,6 +227,8 @@ def generate_random_time(start_time_str, end_time_str, hours_to_add):
     random_minutes = random.randint(0, time_range)
     random_time = datetime.combine(
         datetime.today(), start_time) + timedelta(minutes=random_minutes)
+
+    # Add set extra hours to randomly generated time
     random_time += timedelta(hours=hours_to_add)
     return random_time.strftime("%H:%M")
 
@@ -242,18 +252,18 @@ def generate_flight_price(min, max):
 
 
 # Different random prices depending on the chosen flight.
-currency_symbol = "€"
+CURRENCY_SYMBOL = "€"
 price_1 = generate_flight_price(100, 200)
 price_2 = generate_flight_price(100, 200)
 price_3 = generate_flight_price(100, 200)
-flight_cost = booking["Price"]
 
 
 def format_currency(value, currency_symbol):
     """
     Print flight price with currency attached
     """
-    amount = f"{currency_symbol}{value:.2f}"
+    amount = f"{CURRENCY_SYMBOL}{value:.2f}"
+
     return amount
 
 
@@ -271,19 +281,19 @@ def choose_flight():
             early,
             early_arr,
             f"\033[35m{booking['Arrival']}\033[0m",
-            format_currency(price_1, currency_symbol)],
+            format_currency(price_1, CURRENCY_SYMBOL)],
         ["\033[32m2\033[0m",
             f"\033[36m{booking['Departure']}\033[0m",
             midday,
             midday_arr,
             f"\033[35m{booking['Arrival']}\033[0m",
-            format_currency(price_2, currency_symbol)],
+            format_currency(price_2, CURRENCY_SYMBOL)],
         ["\033[32m3\033[0m",
             f"\033[36m{booking['Departure']}\033[0m",
             late,
             late_arr,
             f"\033[35m{booking['Arrival']}\033[0m",
-            format_currency(price_3, currency_symbol)]]
+            format_currency(price_3, CURRENCY_SYMBOL)]]
     print(tabulate(choose, headers='firstrow', tablefmt='fancy_grid'))
     while True:
         try:
@@ -314,13 +324,16 @@ def passenger_name():
             name = input(
                 "Please enter First and Last Name of main Passenger:\n")
             parts = name.split()
+            # Check if Name contains to parts.
             if len(parts) < 2:
                 print(f"\033[31mPlease provide Full Name\033[0m")
                 continue
+            # Check if there are no digits in Name.
             if any(element.isdigit() for element in name):
                 print("\033[31mName should not contain numbers\033[0m\n")
                 continue
             else:
+                # Remove all additional whitespaces and add to booking
                 first_name = parts[0].capitalize()
                 last_name = parts[1].capitalize()
                 full_name = ' '.join([first_name, last_name])
@@ -341,6 +354,7 @@ def total_amount_of_pax():
             print("\033[33mMaximum number of Passengers is 10\033[0m")
             pax_amount = int(
                 input("\nPlease provide Total amount of Passengers:\n"))
+            # Validate correct number of passengers
             if pax_amount > 10:
                 print(
                     "\033[31mTotal amount of Passenger cannot exceed 10\033[0m\n")
@@ -371,6 +385,7 @@ def checked_in_bags():
             print("There are \033[33m3\033[0m Bags allowed per passenger.\n")
             print("\033[33mPlease be aware that each Bag costs 25€:\033[0m\n")
             number_of_bags = int(input("Please provide amount of Bags:\n"))
+            # Check to calculate correct number of bags allowed.
             booking["Check-in Bags"] = number_of_bags
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
@@ -408,7 +423,8 @@ def reservation_details():
     typing_print(
         f"Reservation: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
-    booking['Price'] = f"{currency_symbol}{booking['Price']}"
+    # Add CURRENCY SYMBOL to reservation print.
+    booking['Price'] = f"{CURRENCY_SYMBOL}{booking['Price']}"
     booking_table = [[key, f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
     print(tabulate(booking_table, tablefmt='grid'))
@@ -427,11 +443,11 @@ def add_booking_row(booking):
         booking['Arrival'],
         booking['Departure Date'],
         booking['Main Passenger Name'],
-        str(booking['Total Number of Passengers']),
+        booking['Total Number of Passengers'],
         booking['Time of Departure'],
         booking['Time of Arrival'],
         booking['Check-in Bags'],
-        str(booking['Price']),
+        booking['Price'],
         booking['Reservation Number']
     ]
     worksheet.append_row(row_values)
@@ -446,6 +462,7 @@ def pull_reservation_details():
     booking_sheet = SHEET.worksheet('bookings')
     number = typing_input("Please enter your Reservation Number:\n")
     number = number.upper()
+    # Read reservation number from the last column
     booking_numbers = booking_sheet.col_values(10)[1:]
 
     if number in booking_numbers:
@@ -453,12 +470,13 @@ def pull_reservation_details():
         booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
         booking_details = dict(zip(headers, booking_values))
-        # add currency symbol to the total price of booking.
+        # add CURRENCY SYMBOL to the total price of booking.
         price = 'Price'
         if price in booking_details:
             price_value = booking_details[price]
-            if not price_value.startswith(currency_symbol):
-                formatted_price = f"{currency_symbol} {price_value}"
+            # Add CURRENCY SYMBOL to Resv print but do not save it
+            if not price_value.startswith(CURRENCY_SYMBOL):
+                formatted_price = f"{CURRENCY_SYMBOL} {price_value}"
                 booking_details[price] = formatted_price
         booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
