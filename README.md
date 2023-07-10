@@ -17,7 +17,7 @@
 4. [Testing](#testing)
 5. [Bugs](#bugs)
 6. [Deployment](#deployment)
-7. [Content](#resources)
+7. [Content](#content)
 8. [Acknowledgments](#acknowledgments)
 
 <a name="preplanning"></a>
