@@ -80,7 +80,6 @@ After providing application with correct Reservation Number, all details are bei
 ![Retrieve Reservation](assets/images/retrieve_reservation.png)
 > All informations shown to the user match previously inputted data. User can input any key to go back to Main Menu.
 
-## Structure
 
 ### Google Sheets
 
@@ -89,13 +88,6 @@ After providing application with correct Reservation Number, all details are bei
 - Spreadsheet contains 17 Worksheets with European Countries and Airports inside them.
 
 - First Worksheet labeled "Bookings" contains all bookings information created by the User. Those information can be retrieved by the User via inputting Reservation Number in the application.
-
-
-
-
-### User Experience
-
-User while using the application show have clear understanding of what is happening on the screen and what is being expected from the User. Each step explains what input is being allowed and what are the choices to select from
 
 <a name="features"></a>
 
