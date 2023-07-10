@@ -492,7 +492,6 @@ def pull_reservation_details():
         booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
         booking_details = dict(zip(headers, booking_values))
-        # add CURRENCY SYMBOL to the total price of booking.
         price = 'Price'
 
         if price in booking_details:
@@ -504,6 +503,7 @@ def pull_reservation_details():
                 booking_details[price] = formatted_price
         booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
+                         
         typing_print(
             f"Please see details of Reservation: \033[33m{number}\033[0m\n")
         print(tabulate(booking_print, tablefmt='grid'))
