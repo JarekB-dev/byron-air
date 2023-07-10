@@ -1,12 +1,12 @@
-import gspread
+import gspread #to manage Google sheets
 from google.oauth2.service_account import Credentials
-import sys
-import time
-from tabulate import tabulate
-import os
-import random
-from datetime import datetime, timedelta
-import string
+import sys # used typing effect
+import time # for time operations
+from tabulate import tabulate # table prints
+import os # used for clearing terminal
+import random #random time and price
+from datetime import datetime, timedelta # time operations
+import string #string operations
 
 
 SCOPE = [
