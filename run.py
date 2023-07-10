@@ -164,7 +164,7 @@ def select_airport(direction, locked=None):
             if sheet_names[selection - 1]:
                 chosen_country_airports = SHEET.worksheet(
                     sheet_names[selection - 1]).get_all_values()[1:]
-                
+
                 # Print all airports included in selected Country.
                 for airport in chosen_country_airports:
                     print(f"\033[32m{airport[0]}\033[0m {airport[1]}")
@@ -284,7 +284,7 @@ def choose_flight():
     Time and price is being generated randomly."""
     global booking
 
-    #List of available flights for user to choose from
+    # List of available flights for user to choose from
     choose = [
         ["Num", "Departure", "Dep Time",
             "Arr Time", "Arrival", "Price"],
@@ -370,7 +370,7 @@ def total_amount_of_pax():
     """
     while True:
         try:
-            print("\033[33mMaximum number of Passengers is 10\033[0m")
+            print("\n\033[33mMaximum number of Passengers is 10\033[0m")
             pax_amount = int(
                 input("\nPlease provide Total amount of Passengers:\n"))
 
@@ -496,7 +496,7 @@ def pull_reservation_details():
     if number in booking_numbers:
         # Get row index of the reservation number
         row_index = booking_numbers.index(number) + 2
-        #Retrieve all values from correct row
+        # Retrieve all values from correct row
         booking_values = booking_sheet.row_values(row_index)
         headers = booking_sheet.row_values(1)
         # Creates dict with headers as keys and rows as values.
@@ -506,7 +506,7 @@ def pull_reservation_details():
             booking_details['Price'] = f"{CURRENCY_SYMBOL}{booking_details['Price']}"
         booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
-                         
+
         typing_print(
             f"Please see details of Reservation: \033[33m{number}\033[0m\n")
         print(tabulate(booking_print, tablefmt='grid'))
