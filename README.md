@@ -32,13 +32,13 @@ As an employee in the airline industry, I decided to create an airline ticket bo
 
 ### Flow of Creating a Booking
 
-When user run the application is being presented with below screen:
+When user run the application, below screen is presented:
 
 ![Main Menu](assets/images/main_menu.png)
 
 > User can choose to Make a Booking or Retrieve already created Reservation.
 
-If user would like to make a booking then below screen is presented to the user.
+If user would like to make a booking, then below screen is shown.
 
 ![Country List](assets/images/country_list.png)
 
@@ -48,27 +48,27 @@ After choosing Departure/Arrival Airport user is being asked to provide date of 
 
 ![Departure Date](assets/images/departure_date.png)
 
-> User have to input date in DD/MM/YYYY format and date must be in the future otherwise error will be shown and user asked to try again.
+> User have to input date in DD/MM/YYYY format and date must be in the future, otherwise error will be shown and user asked to try again.
 
 User is being presented with three available flights with random hours and random prices.
 
 ![Flights details](assets/images/flight_details.png)
 
-> User have to choose one of three options. Any input other than 1,2,3 will create error and ask user to try again.
+> User have to choose one of three options. Any input other than 1,2,3 will cause error and ask user to try again.
 
 Succesfully selecting available flight will prompt the user to next screen, which will ask for Name and total number of passengers.
 
 ![Passenger Details](assets/images/pax_details.png)
 
-> User needs to choose their name that must contain two parts: first and last name. Name cannot contain any digits or error will be shown.
+> User needs to choose name that must contain two parts: first and last name. Name cannot contain any digits or error will be shown.
 
 Last step when application will ask for Users input is number of check-in bags.
 
 ![Check in Bags](assets/images/check_in_bags.png)
 
-> User can select only 3 check in bags per passenger. Each bag costs 25€ and is being added to total booking price. Number of bags more than allowed will print error to the User.
+> User can select only 3 check-in bags per passenger. Each bag costs 25€ and is being added to total booking price. Number of bags more than allowed will print error to the User.
 
-Finally, user is being presented with all input provided in the form of Table. All details are added to Booking worksheet with randomly generated Reservation Number.
+Finally, user is being presented with all provided inputs in form of Table. All details are added to Booking worksheet with randomly generated Reservation Number.
 
 ![Reservation](assets/images/reservation.png)
 
@@ -80,13 +80,13 @@ From the Main Menu if user select option 2 then is being presented with screen t
 
 ![Reservation Number](assets/images/reservation_number.png)
 
-> User must provide number that already exists in the worksheet, otherwise error will be show. Reservation number can be all lowercase or mixed as it is being converted to all Uppercase to match Reservation Number column.
+> User must provide number that already exists in the worksheet, otherwise error will be shown. Reservation number can be all lowercase or mixed as it is being converted to all Uppercase to match Reservation Number column.
 
 After providing application with correct Reservation Number, all details are being pulled from worksheet containing data from rows of the reservation.
 
 ![Retrieve Reservation](assets/images/retrieve_reservation.png)
 
-> All informations shown to the user match previously inputted data. User can input any key to go back to Main Menu.
+> All information shown to the user match previously inputted data. User can input any key to go back to Main Menu.
 
 ### Google Sheets
 
@@ -102,7 +102,7 @@ After providing application with correct Reservation Number, all details are bei
 
 - Get access to Ryanair flight database:
 
-  > Instead of creating random flights with random hours, I would like to link my application to flight live data for user to choose from. Still thinking about prices as these seems depend on to many factors.
+  > Instead of creating random flights with random hours, I would like to link my application to flights live data for user to choose from. Still thinking about prices as these seem to depend on to many factors.
 
 - Give User access to edit created Booking:
 
@@ -110,10 +110,10 @@ After providing application with correct Reservation Number, all details are bei
 
 - Expand options to select seats and link external website to book parking depending on the location:
 
-  > At the moment application does not allow users to select desired seats. I would like to create system similar to Ryanair, where price depends on the seat row or legroom. Also creating external dummy website with parkings in different locations would enhance user experience - New spreadsheet to pull parking locations, prices etc.
+  > At the moment application does not allow users to select desired seats. I would like to create system similar to Ryanair, where price depends on the seats row or legroom. Also creating external dummy website with parkings in different locations would enhance user experience - New spreadsheet to pull parking locations, prices etc.
 
-- Booking confirmation on email.
-  > Currently, Booking is only being created in the spreadsheet and Reservation Number is being presented to the User - if number will be forgotten then there is no way to retrieve booking. I am planning to send all booking information to user email after creating Booking.
+- Booking confirmation to email.
+  > Currently, Booking is only being created in the spreadsheet and Reservation Number is being presented to the User - if number will be forgotten, then there is no way to retrieve booking. I am planning to send all booking information to user email after creating one.
 
 <a name="technologies"></a>
 
@@ -208,7 +208,7 @@ During development of the application I have encountered multiple bugs, most of 
 
 ### Unfixed bugs
 
-- Currently I have a problem when User is trying to input too long name then Reservation Details table is displayed incorrectly in the console due to 80 character width.
+- Currently I have a problem when User is trying to input too long name, then Reservation Details table is displayed incorrectly in the console due to 80 character width.
 
 <a name="deployment"></a>
 
