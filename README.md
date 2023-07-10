@@ -60,7 +60,7 @@ Succesfully selecting available flight will prompt the user to next screen, whic
 
 ![Passenger Details](assets/images/pax_details.png)
 
-> User needs to choose name that must contain two parts: first and last name. Name cannot contain any digits or error will be shown.
+> User needs to choose name that must contain two parts: first and last name. Name cannot contain any digits or error will be shown. User can add total number of 10 passengers. Number more than 10 will cause error.
 
 Last step when application will ask for Users input is number of check-in bags.
 
