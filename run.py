@@ -121,14 +121,17 @@ def main_menu():
             option = int(
                 typing_input("\nPress \033[32m1\033[0m to Make a Booking or \
 \033[34m2\033[0m to Retrieve your Booking:\n"))
+
             if option == 1:
                 clear_terminal()
                 make_a_booking()
                 break
+
             elif option == 2:
                 clear_terminal()
                 pull_reservation_details()
                 break
+
             else:
                 print("\033[31mInvalid option, please try again.\033[0m\n")
         except ValueError:
@@ -176,6 +179,7 @@ def select_airport(direction, locked=None):
                         return select_airport(direction, locked)
 
                 return airport_to_add
+
             else:
                 print("\033[31mPlease select correct Airport.\033[0m\n")
         except ValueError:
@@ -211,6 +215,7 @@ def date_of_departure():
             clear_terminal()
             choose_flight()
             break
+
         except ValueError:
             print("\033[31mPlease provide date in DD/MM/YYYY format\033[0m\n")
 
@@ -298,6 +303,7 @@ def choose_flight():
     while True:
         try:
             flight = int(typing_input("Please choose an available flight:\n"))
+
             if flight in (1, 2, 3):
                 booking["Time of Departure"] = [early, midday, late][flight-1]
                 booking["Time of Arrival"] = [early_arr,
@@ -306,8 +312,10 @@ def choose_flight():
                 booking["Price"] = [price_1, price_2, price_3][flight-1]
                 passenger_name()
                 break
+
             else:
                 print("\033[31mPlease choose a correct flight..\033[0m\n")
+
         except ValueError:
             print("\033[31mPlease choose a correct flight..\033[0m\n")
 
@@ -324,14 +332,17 @@ def passenger_name():
             name = input(
                 "Please enter First and Last Name of main Passenger:\n")
             parts = name.split()
+
             # Check if Name contains to parts.
             if len(parts) < 2:
                 print(f"\033[31mPlease provide Full Name\033[0m")
                 continue
+
             # Check if there are no digits in Name.
             if any(element.isdigit() for element in name):
                 print("\033[31mName should not contain numbers\033[0m\n")
                 continue
+
             else:
                 # Remove all additional whitespaces and add to booking
                 first_name = parts[0].capitalize()
@@ -340,6 +351,7 @@ def passenger_name():
                 booking["Main Passenger Name"] = full_name
                 total_amount_of_pax()
                 break
+
         except ValueError:
             print("\033[31mName should not contain numbers\033[0m\n")
 
@@ -354,11 +366,13 @@ def total_amount_of_pax():
             print("\033[33mMaximum number of Passengers is 10\033[0m")
             pax_amount = int(
                 input("\nPlease provide Total amount of Passengers:\n"))
+
             # Validate correct number of passengers
             if pax_amount > 10:
                 print(
                     "\033[31mTotal amount of Passenger cannot exceed 10\033[0m\n")
                 continue
+
             else:
                 booking["Total Number of Passengers"] = pax_amount
                 price = booking["Price"]
@@ -366,6 +380,7 @@ def total_amount_of_pax():
                 booking["Price"] = total_price
                 checked_in_bags()
                 break
+
         except ValueError:
             print("\033[31mTotal amount of Passengers cannot exceed 10\033[0m\n")
 
@@ -385,20 +400,24 @@ def checked_in_bags():
             print("There are \033[33m3\033[0m Bags allowed per passenger.\n")
             print("\033[33mPlease be aware that each Bag costs 25€:\033[0m\n")
             number_of_bags = int(input("Please provide amount of Bags:\n"))
+
             # Check to calculate correct number of bags allowed.
             booking["Check-in Bags"] = number_of_bags
             total_pax = booking["Total Number of Passengers"]
             max_bags = int(total_pax) * 3
+
             if number_of_bags > max_bags:
                 print(
                     "\033[31mAmount of Bags cannot exceed 3 per Person.\033[0m\n")
                 continue
+
             calculated_amount = int(
                 booking["Price"]) + (number_of_bags * bag_price)
             booking["Price"] = calculated_amount
             reservation_number()
             reservation_details()
             break
+
         except ValueError:
             print("\033[31mPlease enter valid number of Bags.\033[0m\n")
 
@@ -423,10 +442,12 @@ def reservation_details():
     typing_print(
         f"Reservation: \033[33m{booking['Reservation Number']}:\033[0m\n")
     add_booking_row(booking)
+
     # Add CURRENCY SYMBOL to reservation print.
     booking['Price'] = f"{CURRENCY_SYMBOL}{booking['Price']}"
     booking_table = [[key, f"\033[36m{value}\033[0m"]
                      for key, value in booking.items()]
+
     print(tabulate(booking_table, tablefmt='grid'))
     typing_input("\nPlease press any key to go back to Main Menu..")
     main_menu()
@@ -472,8 +493,10 @@ def pull_reservation_details():
         booking_details = dict(zip(headers, booking_values))
         # add CURRENCY SYMBOL to the total price of booking.
         price = 'Price'
+
         if price in booking_details:
             price_value = booking_details[price]
+
             # Add CURRENCY SYMBOL to Resv print but do not save it
             if not price_value.startswith(CURRENCY_SYMBOL):
                 formatted_price = f"{CURRENCY_SYMBOL} {price_value}"
@@ -485,6 +508,7 @@ def pull_reservation_details():
         print(tabulate(booking_print, tablefmt='grid'))
         typing_input("Press any key to go back to Main Menu")
         main_menu()
+
     else:
         print("\033[31mReservation Number not found.\033[0m")
         pull_reservation_details()
