@@ -2,7 +2,7 @@
 
 ## **Python Command Line Ticket Booking System**
 
-> This application is Python based Flight ticket booking system. User is able to book tickets from Destinations in Europe. Customer is able to specify name, amount of bags and select desired flight. Booking creates reservation number which can be retrieved later to check booking details.
+> This application is Python based Flight ticket booking system. A user is able to book tickets from a wide range of European destinations. User can specify name, number of bags and select desired flight. Booking creates a reservation number which can be retrieved later to check booking details.
 > All bases and created bookings are available in this [Spreadsheet](https://docs.google.com/spreadsheets/d/13a70DgGfpnCKCHinh6Xt_CvlNsL3aNJ22Z5P98DCp1c/edit?usp=sharing).
 
 ### [Live Site](https://byron-air-b087f2b64028.herokuapp.com/)
@@ -26,7 +26,7 @@
 
 ## Flow
 
-As an employee in Airline industry, I decided to create Airline Ticket Booking System as my Project 3. Before developing ByronAir application I had to come up with general logic that application will follow. I used Lucid to generate flow chart that helped me to visualize what application needs to do.
+As an employee in the airline industry, I decided to create an airline ticket booking system for my third project. My first step in developing the ByronAir application was to come up with the general logic the application will follow. Using Lucid, I created a flow chart that helped me visualize what the application needs to do. This enabled me to think of the various features and functions the application should have, and the order in which they should be executed. It also gave me a clear understanding of how the different parts of the application interact with each other.
 
 ![Lucid Chart](assets/images/flow_chart.png)
 
