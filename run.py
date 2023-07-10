@@ -337,7 +337,7 @@ def passenger_name():
     while True:
         try:
             name = input(
-                "Please enter First and Last Name of main Passenger:\n")
+                "Please enter First and Last Name of Main Passenger:\n")
             parts = name.split()
 
             # Check if Name contains to parts.
@@ -503,7 +503,7 @@ def pull_reservation_details():
         booking_details = dict(zip(headers, booking_values))
         # Add currency symbol to printed price
         if 'Price' in booking_details:
-            booking_details['Price'] = f"{CURRENCY_SYMBOL} {booking_details['Price']}"
+            booking_details['Price'] = f"{CURRENCY_SYMBOL}{booking_details['Price']}"
         booking_print = [[key, f"\033[36m{value}\033[0m"]
                          for key, value in booking_details.items()]
                          
