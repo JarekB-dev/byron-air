@@ -20,7 +20,6 @@
 7. [Content](#resources)
 8. [Acknowledgments](#acknowledgments)
 
-
 <a name="preplanning"></a>
 
 # $${\color{orange}Preplanning \space Phase}$$
@@ -36,36 +35,43 @@ As an employee in Airline industry, I decided to create Airline Ticket Booking S
 When user run the application is being presented with below screen:
 
 ![Main Menu](assets/images/main_menu.png)
+
 > User can choose to Make a Booking or Retrieve already created Reservation.
 
 If user would like to make a booking then below screen is presented to the user.
 
 ![Country List](assets/images/country_list.png)
+
 > User can choose Country of Departure/Arrival and proceed to select desired Airport of Departure/Arrival.
 
 After choosing Departure/Arrival Airport user is being asked to provide date of Departure with screen below:
 
 ![Departure Date](assets/images/departure_date.png)
+
 > User have to input date in DD/MM/YYYY format and date must be in the future otherwise error will be shown and user asked to try again.
 
 User is being presented with three available flights with random hours and random prices.
 
 ![Flights details](assets/images/flight_details.png)
+
 > User have to choose one of three options. Any input other than 1,2,3 will create error and ask user to try again.
 
 Succesfully selecting available flight will prompt the user to next screen, which will ask for Name and total number of passengers.
 
 ![Passenger Details](assets/images/pax_details.png)
+
 > User needs to choose their name that must contain two parts: first and last name. Name cannot contain any digits or error will be shown.
 
 Last step when application will ask for Users input is number of check-in bags.
 
 ![Check in Bags](assets/images/check_in_bags.png)
+
 > User can select only 3 check in bags per passenger. Each bag costs 25€ and is being added to total booking price. Number of bags more than allowed will print error to the User.
 
 Finally, user is being presented with all input provided in the form of Table. All details are added to Booking worksheet with randomly generated Reservation Number.
 
 ![Reservation](assets/images/reservation.png)
+
 > User can write down Reservation Number to Retrieve booking later. Any key will get User back to Main Menu.
 
 ### Retrieving Reservation
@@ -73,13 +79,14 @@ Finally, user is being presented with all input provided in the form of Table. A
 From the Main Menu if user select option 2 then is being presented with screen to input Reservation Number.
 
 ![Reservation Number](assets/images/reservation_number.png)
+
 > User must provide number that already exists in the worksheet, otherwise error will be show. Reservation number can be all lowercase or mixed as it is being converted to all Uppercase to match Reservation Number column.
 
 After providing application with correct Reservation Number, all details are being pulled from worksheet containing data from rows of the reservation.
 
 ![Retrieve Reservation](assets/images/retrieve_reservation.png)
-> All informations shown to the user match previously inputted data. User can input any key to go back to Main Menu.
 
+> All informations shown to the user match previously inputted data. User can input any key to go back to Main Menu.
 
 ### Google Sheets
 
@@ -247,7 +254,7 @@ $${\color{red}Make \space sure \space they \space are\space in\space this\space 
 
 - We can now click on the open App button above to view our application.
 
-<a name="features"></a>
+<a name="content"></a>
 
 # $${\color{orange}Content}$$
 
@@ -271,7 +278,6 @@ $${\color{red}Make \space sure \space they \space are\space in\space this\space 
 
 > Used to resolve issues with clearing terminal as well as Aiports/Countries indexing problem.
 
-
 <a name="acknowledgments"></a>
 
 # $${\color{orange}Acknowledgments}$$
@@ -283,4 +289,3 @@ My Mentor that provided me with helpful tips, amazing feedback and continuous su
 ### Code Instutute Community
 
 Great community that is always willing to help with any issues course participants are facing. I am very honored to be part of it.
-
